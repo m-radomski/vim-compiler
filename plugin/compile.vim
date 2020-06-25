@@ -1,9 +1,9 @@
 let g:compile_cmd = ""
 
 fun! s:compile()
-	let g:compile_cmd = input("Command to run: ")
+	let g:compile_cmd = input("Command to run: ", g:compile_cmd)
 
-	execute g:compile_cmd
+	echo system(g:compile_cmd)
 endf
 
 fun! s:recompile()
@@ -12,7 +12,7 @@ fun! s:recompile()
 		return ''
 	endif
 	
-	execute g:compile_cmd
+	echo system(g:compile_cmd)
 endf
 
 command! Compile call s:compile()
