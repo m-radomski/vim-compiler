@@ -3,7 +3,7 @@ let g:compile_cmd = ""
 fun! s:compile()
 	let g:compile_cmd = input("Command to run: ", g:compile_cmd)
 
-	echo system(g:compile_cmd)
+	call s:run()
 endf
 
 fun! s:recompile()
@@ -12,7 +12,17 @@ fun! s:recompile()
 		return ''
 	endif
 	
-	echo system(g:compile_cmd)
+	call s:run()
+endf
+
+fun! s:run()
+	cexpr system(g:compile_cmd)
+
+	let t:master_win = winbufnr(0)
+
+	copen
+	wincmd L
+	execute t:master_win . "wincmd W"
 endf
 
 command! Compile call s:compile()
